@@ -1,4 +1,4 @@
-# Evently API Documentation
+# EventFlux API Documentation
 
 ## Base URL
 
