@@ -17,11 +17,11 @@ export const testConnection = async () => {
   try {
     const client = await pool.connect();
     const result = await client.query("SELECT NOW()");
-    console.log("✅ DB connected successfully at:", result.rows[0].now);
+    console.log("DB connected successfully at:", result.rows[0].now);
     client.release();
     return true;
   } catch (error) {
-    console.error("❌ DB connection failed:", error.message);
+    console.error("DB connection failed:", error.message);
     return false;
   }
 };
