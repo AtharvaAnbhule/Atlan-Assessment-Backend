@@ -90,12 +90,12 @@ app.use(errorHandler);
 
 const startServer = async () => {
   try {
-    console.log("🔄 Testing database connection...");
+    console.log("Testing database connection...");
     const isConnected = await testConnection();
 
     if (!isConnected) {
       console.error(
-        "❌ Failed to connect to database. Please check your DATABASE_URL environment variable."
+        "Failed to connect to database. Please check your DATABASE_URL environment variable."
       );
       process.exit(1);
     }
@@ -105,36 +105,36 @@ const startServer = async () => {
     }
 
     app.listen(PORT, () => {
-      console.log("🚀 Evently Backend Server Started!");
-      console.log(`📍 Server running on port ${PORT}`);
-      console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
-      console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-      console.log(`📚 API Documentation: http://localhost:${PORT}/`);
-      console.log("✅ All systems operational!");
+      console.log("Evently Backend Server Started!");
+      console.log(`Server running on port ${PORT}`);
+      console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+      console.log(`Health check: http://localhost:${PORT}/health`);
+      console.log(`API Documentation: http://localhost:${PORT}/`);
+      console.log("All systems operational!");
     });
   } catch (error) {
-    console.error("❌ Failed to start server:", error.message);
+    console.error("Failed to start server:", error.message);
     process.exit(1);
   }
 };
 
 process.on("SIGINT", () => {
-  console.log("\n🛑 Received SIGINT. Starting graceful shutdown...");
+  console.log("\nReceived SIGINT. Starting graceful shutdown...");
   process.exit(0);
 });
 
 process.on("SIGTERM", () => {
-  console.log("\n🛑 Received SIGTERM. Starting graceful shutdown...");
+  console.log("\nReceived SIGTERM. Starting graceful shutdown...");
   process.exit(0);
 });
 
 process.on("unhandledRejection", (reason, promise) => {
-  console.error("❌ Unhandled Rejection at:", promise, "reason:", reason);
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
   process.exit(1);
 });
 
 process.on("uncaughtException", (error) => {
-  console.error("❌ Uncaught Exception:", error.message);
+  console.error("Uncaught Exception:", error.message);
   console.error(error.stack);
   process.exit(1);
 });
