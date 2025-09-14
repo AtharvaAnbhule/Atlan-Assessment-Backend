@@ -1,8 +1,8 @@
-# Evently - Scalable Event Booking Backend
+# EventFlux - Scalable Event Booking Backend
 
 A comprehensive, production-ready backend system for event ticket booking with advanced concurrency handling, analytics, and admin features.
 
-## 🚀 Features
+##  Features
 
 ### Core Functionality
 - **User Management**: Registration, authentication, profile management
@@ -21,7 +21,7 @@ A comprehensive, production-ready backend system for event ticket booking with a
 - **Scheduled Jobs**: Automated cleanup and analytics updates
 - **Database Optimization**: Proper indexing and query optimization
 
-## 🏗️ Architecture
+##  Architecture
 
 ### Database Design
 ```
@@ -40,7 +40,7 @@ Users ──┐
 4. **Rate Limiting**: Tiered rate limiting based on endpoint sensitivity
 5. **Modular Architecture**: Clean separation of routes, models, and middleware
 
-## 📊 API Endpoints
+##  API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register new user
@@ -76,7 +76,7 @@ Users ──┐
 - `GET /api/admin/events` - All events
 - `GET /api/admin/health` - System health check
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Node.js 18+
@@ -113,7 +113,7 @@ npm run dev
 npm start
 ```
 
-## 🔄 Database Migrations
+##  Database Migrations
 
 The system includes a comprehensive migration system:
 
@@ -130,7 +130,7 @@ npm run migrate
 4. **Sample Data**: Realistic test data for development
 5. **Analytics Tables**: Pre-aggregated data for fast reporting
 
-## 🔒 Security Features
+##  Security Features
 
 - **JWT Authentication**: Secure token-based authentication
 - **Password Hashing**: bcrypt with salt rounds
@@ -141,7 +141,7 @@ npm run migrate
 - **Helmet.js**: Security headers
 - **Error Sanitization**: Prevent information leakage
 
-## ⚡ Performance Optimizations
+##  Performance Optimizations
 
 - **Database Indexing**: Strategic indexes on commonly queried columns
 - **Connection Pooling**: Efficient database connection management
@@ -150,7 +150,7 @@ npm run migrate
 - **Pagination**: Built-in pagination for large datasets
 - **Caching Headers**: Appropriate cache control headers
 
-## 📈 Analytics & Monitoring
+##  Analytics & Monitoring
 
 ### Built-in Analytics
 - Total bookings and revenue
@@ -166,7 +166,7 @@ npm run migrate
 - Response time monitoring
 - Error rate tracking
 
-## 🔧 Testing
+##  Testing
 
 ### Manual Testing
 The API includes comprehensive error handling and validation that can be tested with tools like:
@@ -182,7 +182,7 @@ The API includes comprehensive error handling and validation that can be tested 
 4. **Waitlist Functionality**
 5. **Analytics Retrieval**
 
-## 🚀 Deployment
+##  Deployment
 
 ### Environment Variables for Production
 ```bash
@@ -207,7 +207,7 @@ RATE_LIMIT_MAX_REQUESTS=1000
 5. **SSL**: HTTPS termination at load balancer
 6. **Logging**: Structured logging for debugging
 
-## 🛠️ Development
+##  Development
 
 ### Project Structure
 ```
@@ -244,7 +244,7 @@ RATE_LIMIT_MAX_REQUESTS=1000
 - Clean, readable code with comments
 - Modular architecture
 
-## 📋 Scalability Considerations
+##  Scalability Considerations
 
 ### Current Implementation
 - **Database**: PostgreSQL with proper indexing
@@ -259,7 +259,7 @@ RATE_LIMIT_MAX_REQUESTS=1000
 4. **Load Balancing**: Multiple server instances
 5. **Message Queues**: Async processing for heavy operations
 
-## 🎯 Business Logic
+##  Business Logic
 
 ### Booking Rules
 - Maximum 10 tickets per booking
@@ -277,7 +277,7 @@ RATE_LIMIT_MAX_REQUESTS=1000
 - Priority based on join time (FIFO)
 - Notifications expire if not acted upon
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -301,18 +301,5 @@ RATE_LIMIT_MAX_REQUESTS=1000
    - Check transaction isolation
    - Monitor concurrent booking patterns
 
-## 📞 Support
 
-For questions or issues:
-1. Check the troubleshooting section
-2. Review error logs
-3. Test with provided sample data
-4. Verify environment configuration
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-**Evently Backend - Built for scale, designed for performance! 🎉**
+**EventFlux Backend - Built for scale, designed for performance! 🎉**
