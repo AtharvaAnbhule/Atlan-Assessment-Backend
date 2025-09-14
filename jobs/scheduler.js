@@ -94,7 +94,7 @@ const markCompletedEvents = async () => {
   }
 };
 
-// Initialize scheduled jobs
+
 export const initializeScheduledJobs = () => {
   console.log(" Initializing scheduled jobs...");
 
