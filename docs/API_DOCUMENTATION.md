@@ -1,19 +1,24 @@
 # Evently API Documentation
 
 ## Base URL
+
 ```
-Production: https://your-domain.com/api
+Production: https://domain-name/api
 Development: http://localhost:3000/api
 ```
 
 ## Authentication
+
 Most endpoints require JWT authentication. Include the token in the Authorization header:
+
 ```
 Authorization: Bearer your_jwt_token_here
 ```
 
 ## Response Format
+
 All API responses follow this format:
+
 ```json
 {
   "message": "Description of the operation",
@@ -23,6 +28,7 @@ All API responses follow this format:
 ```
 
 ## Error Responses
+
 ```json
 {
   "error": "Error description",
@@ -36,11 +42,13 @@ All API responses follow this format:
 ## Authentication Endpoints
 
 ### Register User
+
 ```http
 POST /api/auth/register
 ```
 
 **Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -51,6 +59,7 @@ POST /api/auth/register
 ```
 
 **Response (201):**
+
 ```json
 {
   "message": "User registered successfully",
@@ -66,11 +75,13 @@ POST /api/auth/register
 ```
 
 ### Login User
+
 ```http
 POST /api/auth/login
 ```
 
 **Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -79,6 +90,7 @@ POST /api/auth/login
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Login successful",
@@ -94,12 +106,14 @@ POST /api/auth/login
 ```
 
 ### Get Profile
+
 ```http
 GET /api/auth/profile
 Authorization: Bearer {token}
 ```
 
 **Response (200):**
+
 ```json
 {
   "user": {
@@ -118,11 +132,13 @@ Authorization: Bearer {token}
 ## Events Endpoints
 
 ### List Events
+
 ```http
 GET /api/events?page=1&limit=10&category=technology&search=conference
 ```
 
 **Query Parameters:**
+
 - `page` (number): Page number (default: 1)
 - `limit` (number): Items per page (default: 10, max: 100)
 - `category` (string): Filter by category
@@ -134,6 +150,7 @@ GET /api/events?page=1&limit=10&category=technology&search=conference
 - `sort_order` (string): `asc` or `desc`
 
 **Response (200):**
+
 ```json
 {
   "message": "Events retrieved successfully",
@@ -163,29 +180,33 @@ GET /api/events?page=1&limit=10&category=technology&search=conference
 ```
 
 ### Get Single Event
+
 ```http
 GET /api/events/:id
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Event retrieved successfully",
   "event": {
     "id": 1,
-    "name": "Tech Conference 2025",
+    "name": "Tech Conference 2025"
     // ... all event fields
   }
 }
 ```
 
 ### Create Event (Admin Only)
+
 ```http
 POST /api/events
 Authorization: Bearer {admin_token}
 ```
 
 **Body:**
+
 ```json
 {
   "name": "New Event",
@@ -194,7 +215,7 @@ Authorization: Bearer {admin_token}
   "address": "123 Event Street",
   "event_date": "2025-03-15T10:00:00Z",
   "capacity": 100,
-  "price": 50.00,
+  "price": 50.0,
   "category": "business",
   "image_url": "https://example.com/image.jpg",
   "status": "active"
@@ -202,12 +223,14 @@ Authorization: Bearer {admin_token}
 ```
 
 ### Update Event (Admin/Creator Only)
+
 ```http
 PUT /api/events/:id
 Authorization: Bearer {token}
 ```
 
 ### Delete Event (Admin/Creator Only)
+
 ```http
 DELETE /api/events/:id
 Authorization: Bearer {token}
@@ -218,16 +241,19 @@ Authorization: Bearer {token}
 ## Booking Endpoints
 
 ### Get User Bookings
+
 ```http
 GET /api/bookings?status=confirmed&upcoming_only=true
 Authorization: Bearer {token}
 ```
 
 **Query Parameters:**
+
 - `status` (string): Filter by status (`confirmed`, `cancelled`)
 - `upcoming_only` (boolean): Only future events
 
 **Response (200):**
+
 ```json
 {
   "message": "Bookings retrieved successfully",
@@ -250,11 +276,13 @@ Authorization: Bearer {token}
 ```
 
 ### Get Booking by Reference
+
 ```http
 GET /api/bookings/reference/:reference
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Booking retrieved successfully",
@@ -273,12 +301,14 @@ GET /api/bookings/reference/:reference
 ```
 
 ### Create Booking
+
 ```http
 POST /api/bookings
 Authorization: Bearer {token}
 ```
 
 **Body:**
+
 ```json
 {
   "event_id": 1,
@@ -287,6 +317,7 @@ Authorization: Bearer {token}
 ```
 
 **Response (201):**
+
 ```json
 {
   "message": "Booking created successfully",
@@ -307,12 +338,14 @@ Authorization: Bearer {token}
 ```
 
 ### Cancel Booking
+
 ```http
 PUT /api/bookings/:id/cancel
 Authorization: Bearer {token}
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Booking cancelled successfully",
@@ -329,12 +362,14 @@ Authorization: Bearer {token}
 ## Waitlist Endpoints
 
 ### Get User Waitlist
+
 ```http
 GET /api/waitlist
 Authorization: Bearer {token}
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Waitlist entries retrieved successfully",
@@ -355,12 +390,14 @@ Authorization: Bearer {token}
 ```
 
 ### Join Waitlist
+
 ```http
 POST /api/waitlist/join
 Authorization: Bearer {token}
 ```
 
 **Body:**
+
 ```json
 {
   "event_id": 1,
@@ -369,12 +406,14 @@ Authorization: Bearer {token}
 ```
 
 ### Leave Waitlist
+
 ```http
 DELETE /api/waitlist/:event_id
 Authorization: Bearer {token}
 ```
 
 ### Get Waitlist Notifications
+
 ```http
 GET /api/waitlist/notifications
 Authorization: Bearer {token}
@@ -385,12 +424,14 @@ Authorization: Bearer {token}
 ## Admin Endpoints
 
 ### Dashboard Statistics
+
 ```http
 GET /api/admin/dashboard
 Authorization: Bearer {admin_token}
 ```
 
 **Response (200):**
+
 ```json
 {
   "message": "Dashboard statistics retrieved successfully",
@@ -418,18 +459,21 @@ Authorization: Bearer {admin_token}
 ```
 
 ### Get All Users (Admin)
+
 ```http
 GET /api/admin/users
 Authorization: Bearer {admin_token}
 ```
 
 ### Get User Details (Admin)
+
 ```http
 GET /api/admin/users/:id
 Authorization: Bearer {admin_token}
 ```
 
 ### System Health Check (Admin)
+
 ```http
 GET /api/admin/health
 Authorization: Bearer {admin_token}
@@ -439,32 +483,32 @@ Authorization: Bearer {admin_token}
 
 ## Error Codes
 
-| Code | Description |
-|------|-------------|
-| `MISSING_TOKEN` | Authorization token is required |
-| `INVALID_TOKEN` | Token is invalid or malformed |
-| `TOKEN_EXPIRED` | Token has expired |
-| `INSUFFICIENT_PERMISSIONS` | User doesn't have required permissions |
-| `USER_ALREADY_EXISTS` | Email is already registered |
-| `INVALID_CREDENTIALS` | Login credentials are incorrect |
-| `EVENT_NOT_FOUND` | Event doesn't exist |
-| `BOOKING_NOT_FOUND` | Booking doesn't exist |
-| `INSUFFICIENT_AVAILABILITY` | Not enough tickets available |
-| `DUPLICATE_BOOKING` | User already has booking for this event |
-| `CANCELLATION_DEADLINE_PASSED` | Cannot cancel within 24 hours |
-| `RATE_LIMIT_EXCEEDED` | Too many requests |
-| `VALIDATION_ERROR` | Request validation failed |
+| Code                           | Description                             |
+| ------------------------------ | --------------------------------------- |
+| `MISSING_TOKEN`                | Authorization token is required         |
+| `INVALID_TOKEN`                | Token is invalid or malformed           |
+| `TOKEN_EXPIRED`                | Token has expired                       |
+| `INSUFFICIENT_PERMISSIONS`     | User doesn't have required permissions  |
+| `USER_ALREADY_EXISTS`          | Email is already registered             |
+| `INVALID_CREDENTIALS`          | Login credentials are incorrect         |
+| `EVENT_NOT_FOUND`              | Event doesn't exist                     |
+| `BOOKING_NOT_FOUND`            | Booking doesn't exist                   |
+| `INSUFFICIENT_AVAILABILITY`    | Not enough tickets available            |
+| `DUPLICATE_BOOKING`            | User already has booking for this event |
+| `CANCELLATION_DEADLINE_PASSED` | Cannot cancel within 24 hours           |
+| `RATE_LIMIT_EXCEEDED`          | Too many requests                       |
+| `VALIDATION_ERROR`             | Request validation failed               |
 
 ---
 
 ## Rate Limits
 
-| Endpoint Type | Limit | Window |
-|---------------|-------|---------|
-| General API | 100 requests | 15 minutes |
-| Authentication | 10 requests | 15 minutes |
-| Booking | 5 requests | 1 minute |
-| Admin | 30 requests | 1 minute |
+| Endpoint Type  | Limit        | Window     |
+| -------------- | ------------ | ---------- |
+| General API    | 100 requests | 15 minutes |
+| Authentication | 10 requests  | 15 minutes |
+| Booking        | 5 requests   | 1 minute   |
+| Admin          | 30 requests  | 1 minute   |
 
 ---
 

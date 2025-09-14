@@ -7,7 +7,6 @@ export const errorHandler = (err, req, res, next) => {
     timestamp: new Date().toISOString(),
   });
 
-  // Database connection errors
   if (err.code === "ECONNREFUSED" || err.code === "ENOTFOUND") {
     return res.status(503).json({
       error: "Service temporarily unavailable",
@@ -15,9 +14,7 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Database constraint violations
   if (err.code === "23505") {
-    // Unique violation
     return res.status(409).json({
       error: "Resource already exists",
       code: "DUPLICATE_RESOURCE",
@@ -26,7 +23,6 @@ export const errorHandler = (err, req, res, next) => {
   }
 
   if (err.code === "23503") {
-    // Foreign key violation
     return res.status(400).json({
       error: "Invalid reference to related resource",
       code: "FOREIGN_KEY_VIOLATION",
@@ -41,7 +37,6 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // JWT errors
   if (err.name === "JsonWebTokenError") {
     return res.status(401).json({
       error: "Invalid authentication token",
@@ -56,7 +51,6 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Validation errors (from Joi)
   if (err.name === "ValidationError") {
     return res.status(400).json({
       error: "Validation failed",

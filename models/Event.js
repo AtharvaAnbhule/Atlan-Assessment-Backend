@@ -100,7 +100,6 @@ export class Event {
     const limit = Math.min(parseInt(filters.limit) || 10, 100);
     const offset = (parseInt(filters.page) - 1 || 0) * limit;
 
-    // main query params
     const mainParams = [...params, limit, offset];
 
     const result = await query(
@@ -116,7 +115,6 @@ export class Event {
       mainParams
     );
 
-    // count query uses only filter params (no limit/offset)
     const countResult = await query(
       `
     SELECT COUNT(*) as total
@@ -149,7 +147,6 @@ export class Event {
       status,
     } = eventData;
 
-    // Calculate new available tickets if capacity changed
     const currentEvent = await this.findById(id);
     if (!currentEvent) {
       throw new Error("Event not found");
@@ -194,7 +191,6 @@ export class Event {
   }
 
   static async delete(id, userId) {
-    // Check if there are any confirmed bookings
     const bookingCheck = await query(
       `
       SELECT COUNT(*) as booking_count

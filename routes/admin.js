@@ -8,12 +8,10 @@ import { asyncHandler } from "../middleware/errorHandler.js";
 
 const router = express.Router();
 
-// Apply admin authentication and rate limiting to all routes
 router.use(authenticateToken);
 router.use(requireAdmin);
 router.use(adminLimiter);
 
-// Get dashboard overview statistics
 router.get(
   "/dashboard",
   asyncHandler(async (req, res) => {
@@ -22,12 +20,10 @@ router.get(
       Event.getPopularEvents(5),
     ]);
 
-    // Get total users count
     const allUsers = await User.getAllUsers();
     const totalUsers = allUsers.length;
     const adminUsers = allUsers.filter((user) => user.role === "admin").length;
 
-    // Get events statistics
     const allEvents = await Event.findAll({ status: "active", limit: 1000 });
     const totalEvents = allEvents.total;
 
@@ -50,7 +46,6 @@ router.get(
   })
 );
 
-// Get all users
 router.get(
   "/users",
   asyncHandler(async (req, res) => {
@@ -63,7 +58,6 @@ router.get(
   })
 );
 
-// Get user details by ID
 router.get(
   "/users/:id",
   asyncHandler(async (req, res) => {
@@ -85,7 +79,6 @@ router.get(
       });
     }
 
-    // Get user's bookings
     const bookings = await Booking.findByUserId(parseInt(id));
 
     res.json({
@@ -96,13 +89,12 @@ router.get(
   })
 );
 
-// Get all events (admin view with all statuses)
 router.get(
   "/events",
   asyncHandler(async (req, res) => {
     const filters = {
       ...req.query,
-      // Remove status filter to show all events
+
       status: undefined,
     };
 
@@ -115,7 +107,6 @@ router.get(
   })
 );
 
-// Get comprehensive event analytics
 router.get(
   "/events/:id/analytics",
   asyncHandler(async (req, res) => {
@@ -140,7 +131,6 @@ router.get(
       });
     }
 
-    // Calculate additional analytics
     const totalBookings = bookings.length;
     const confirmedBookings = bookings.filter((b) => b.status === "confirmed");
     const cancelledBookings = bookings.filter((b) => b.status === "cancelled");
@@ -156,7 +146,7 @@ router.get(
             ? ((cancelledBookings.length / totalBookings) * 100).toFixed(2)
             : 0,
       },
-      recent_bookings: bookings.slice(0, 10), // Last 10 bookings
+      recent_bookings: bookings.slice(0, 10),
     };
 
     res.json({
@@ -166,14 +156,12 @@ router.get(
   })
 );
 
-// System health check
 router.get(
   "/health",
   asyncHandler(async (req, res) => {
     const startTime = Date.now();
 
     try {
-      // Test database connectivity
       const dbTestResult = await User.findById(1);
       const dbResponseTime = Date.now() - startTime;
 

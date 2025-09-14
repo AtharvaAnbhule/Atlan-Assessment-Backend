@@ -12,17 +12,14 @@ import { asyncHandler } from "../middleware/errorHandler.js";
 
 const router = express.Router();
 
-// Apply auth rate limiting to all auth routes
 router.use(authLimiter);
 
-// Register new user
 router.post(
   "/register",
   validate(registerSchema),
   asyncHandler(async (req, res) => {
     const { email, password, first_name, last_name, role } = req.body;
 
-    // Check if user already exists
     const existingUser = await User.findByEmail(email);
     if (existingUser) {
       return res.status(409).json({
@@ -31,7 +28,6 @@ router.post(
       });
     }
 
-    // Create new user
     const user = await User.create({
       email,
       password,
@@ -40,7 +36,6 @@ router.post(
       role,
     });
 
-    // Generate JWT token
     const token = jwt.sign(
       { userId: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
@@ -61,14 +56,12 @@ router.post(
   })
 );
 
-// Login user
 router.post(
   "/login",
   validate(loginSchema),
   asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
-    // Find user by email
     const user = await User.findByEmail(email);
     if (!user) {
       return res.status(401).json({
@@ -77,7 +70,6 @@ router.post(
       });
     }
 
-    // Verify password
     const isValidPassword = await User.verifyPassword(
       password,
       user.password_hash
@@ -89,7 +81,6 @@ router.post(
       });
     }
 
-    // Generate JWT token
     const token = jwt.sign(
       { userId: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
@@ -110,7 +101,6 @@ router.post(
   })
 );
 
-// Get current user profile
 router.get(
   "/profile",
   authenticateToken,
@@ -128,7 +118,6 @@ router.get(
   })
 );
 
-// Update user profile
 router.put(
   "/profile",
   authenticateToken,
@@ -154,7 +143,6 @@ router.put(
   })
 );
 
-// Change password
 router.put(
   "/change-password",
   authenticateToken,
@@ -175,10 +163,8 @@ router.put(
       });
     }
 
-    // Get current user with password
     const user = await User.findByEmail(req.user.email);
 
-    // Verify current password
     const isValidPassword = await User.verifyPassword(
       current_password,
       user.password_hash
@@ -190,7 +176,6 @@ router.put(
       });
     }
 
-    // Update password
     await User.changePassword(req.user.id, new_password);
 
     res.json({
@@ -199,7 +184,6 @@ router.put(
   })
 );
 
-// Refresh token
 router.post(
   "/refresh",
   authenticateToken,

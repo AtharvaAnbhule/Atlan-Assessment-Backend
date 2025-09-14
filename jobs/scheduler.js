@@ -3,7 +3,7 @@ import { query } from "../config/database.js";
 
 const cleanupExpiredEntries = async () => {
   try {
-    console.log("🧹 Starting cleanup of expired entries...");
+    console.log(" Starting cleanup of expired entries...");
 
     const expiredWaitlistResult = await query(`
       UPDATE waitlist 
@@ -14,7 +14,7 @@ const cleanupExpiredEntries = async () => {
     `);
 
     console.log(
-      `✅ Cleaned up ${expiredWaitlistResult.rowCount} expired waitlist entries`
+      ` Cleaned up ${expiredWaitlistResult.rowCount} expired waitlist entries`
     );
 
     const oldCancelledResult = await query(`
@@ -25,16 +25,16 @@ const cleanupExpiredEntries = async () => {
     `);
 
     console.log(
-      `✅ Cleaned up ${oldCancelledResult.rowCount} old cancelled bookings`
+      ` Cleaned up ${oldCancelledResult.rowCount} old cancelled bookings`
     );
   } catch (error) {
-    console.error("❌ Error during cleanup:", error.message);
+    console.error(" Error during cleanup:", error.message);
   }
 };
 
 const updateBookingAnalytics = async () => {
   try {
-    console.log("📊 Updating booking analytics...");
+    console.log(" Updating booking analytics...");
 
     await query(`
       INSERT INTO booking_analytics (event_id, date, total_bookings, total_revenue, cancellations)
@@ -61,15 +61,15 @@ const updateBookingAnalytics = async () => {
         cancellations = EXCLUDED.cancellations
     `);
 
-    console.log("✅ Booking analytics updated successfully");
+    console.log(" Booking analytics updated successfully");
   } catch (error) {
-    console.error("❌ Error updating booking analytics:", error.message);
+    console.error(" Error updating booking analytics:", error.message);
   }
 };
 
 const markCompletedEvents = async () => {
   try {
-    console.log("🏁 Checking for completed events...");
+    console.log(" Checking for completed events...");
 
     const completedEventsResult = await query(`
       UPDATE events 
@@ -81,22 +81,22 @@ const markCompletedEvents = async () => {
 
     if (completedEventsResult.rowCount > 0) {
       console.log(
-        `✅ Marked ${completedEventsResult.rowCount} events as completed:`
+        ` Marked ${completedEventsResult.rowCount} events as completed:`
       );
       completedEventsResult.rows.forEach((event) => {
         console.log(`   - ${event.name} (ID: ${event.id})`);
       });
     } else {
-      console.log("✅ No events to mark as completed");
+      console.log(" No events to mark as completed");
     }
   } catch (error) {
-    console.error("❌ Error marking completed events:", error.message);
+    console.error(" Error marking completed events:", error.message);
   }
 };
 
 // Initialize scheduled jobs
 export const initializeScheduledJobs = () => {
-  console.log("⏰ Initializing scheduled jobs...");
+  console.log(" Initializing scheduled jobs...");
 
   cron.schedule("0 2 * * *", cleanupExpiredEntries);
 
@@ -108,7 +108,7 @@ export const initializeScheduledJobs = () => {
   setTimeout(updateBookingAnalytics, 10000);
   setTimeout(markCompletedEvents, 15000);
 
-  console.log("✅ Scheduled jobs initialized successfully");
+  console.log(" Scheduled jobs initialized successfully");
 };
 
 export default {
