@@ -30,7 +30,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? ["https://evently-app.com", "https://www.evently-app.com"]
+        ? ["https://atlan-assessment-backend.onrender.com", "https://www.evently-app.com"]
         : [
             "http://localhost:3000",
             "http://localhost:5173",
