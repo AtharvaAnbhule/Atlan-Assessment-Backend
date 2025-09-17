@@ -74,7 +74,7 @@ app.get("/", (req, res) => {
       "Admin dashboard",
       "Rate limiting & security",
     ],
-    documentation: "https://github.com/evently-backend/docs",
+    documentation: "https://github.com/AtharvaAnbhule/Atlan-Assessment-Backend/docs",
   });
 });
 
